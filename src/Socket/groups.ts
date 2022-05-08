@@ -100,9 +100,9 @@ export const makeGroupsSocket = (config: SocketConfig) => {
 			const node = getBinaryNodeChild(result, action)
 			const participantsAffected = getBinaryNodeChildren(node!, 'participant')
 			return participantsAffected.map(p => {
-				return { status: p.attrs.error || 200, jid: p.attrs.jid }
+				return { status: p.attrs.error || 200, jid: p.attrs.jid, extras: action == 'add' && p.attrs.error ? getBinaryNodeChildren(p, 'add_request').map((d)=> d.attrs) : false}
 			})
-		},
+				},
 		groupUpdateDescription: async(jid: string, description?: string) => {
 			const metadata = await groupMetadata(jid)
 			const prev = metadata.descId ?? null
