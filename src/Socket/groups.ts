@@ -99,7 +99,7 @@ export const makeGroupsSocket = (config: SocketConfig) => {
 			)
 			const node = getBinaryNodeChild(result, action)
 			const participantsAffected = getBinaryNodeChildren(node!, 'participant')
-			participantsAffected.forEach(participant => {
+			participantsAffected.map(participant => {
 				let data = {status: participant.attrs.error || 200, jid: participant.attrs.jid}
 				if (action == 'add' && participant.attrs.error) {
 					data["extras"] = getBinaryNodeChildren(participant, 'add_request').map((d)=> d.attrs)
